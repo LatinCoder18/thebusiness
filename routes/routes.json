@@ -1,0 +1,38 @@
+[
+  {
+    "path": "/users",
+    "middlewares": "",
+    "route": "../routes/users",
+    "type": "API"
+  },
+  {
+    "path": "/errors",
+    "middlewares": "",
+    "route": "../routes/errors",
+    "type": "API"
+  },
+  {
+    "path": "/auth",
+    "middlewares": "",
+    "route": "../routes/auth",
+    "type": "API"
+  },
+  {
+    "path": "/main",
+    "middlewares": "",
+    "route": "../routes/main",
+    "type": "API"
+  },
+  {
+    "path": "/business",
+    "middlewares": "",
+    "route": "../routes/business",
+    "type": "API"
+  },
+  {
+    "path": "/products",
+    "middlewares": "",
+    "route": "../routes/products",
+    "type": "API"
+  }
+]

@@ -1,0 +1,34 @@
+version: '3'
+services:
+  api:
+    container_name: airline_service
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - database
+    depends_on: 
+      - database
+  database:
+    container_name: mariadbdatabase
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "backend"
+      MYSQL_USER: "backend"
+      MYSQL_PASSWORD: "backend"
+    expose:
+      - "3306"
+    volumes:
+      - ./mariadb:/var/lib/mysql
+  scrape:
+    container_name: airline_scrape
+    build: scraper
+    restart: always
+    expose:
+      - 3000
+    links:
+      - api
+    depends_on:
+      - api

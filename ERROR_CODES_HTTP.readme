@@ -1,0 +1,7 @@
+#Author: Adonys Valdés Arencibia
+400 Bad Request Cuando el usuario envia datos o la petici'on de forma incorrecta
+500 Errores del Servidor
+403 No tiene permiso para acceder, generalmente hacemos esto cuando el usuario no tiene un Token Válido o no Se a Identificado
+200 ok
+201 Creado es para cuando se crea un registro nuevo bien
+https://www.restapitutorial.com/httpstatuscodes.html

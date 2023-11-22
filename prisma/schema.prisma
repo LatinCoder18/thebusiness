@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id         Int        @id @default(autoincrement())
+  name       String?
+  email      String?
+  avatar     Json?
+  phone      String?
+  password   String?
+  userOTP    String?
+  role       Roles?     @relation(fields: [rolesId], references: [id])
+  createdAt  DateTime?  @default(now())
+  isVerified Boolean?   @default(false)
+  isDeleted  Boolean?   @default(false)
+  rolesId    Int?
+  Business   Business[]
+}
+
+model Roles {
+  id    Int     @id @default(autoincrement())
+  name  String
+  Users Users[]
+}
+
+model Error {
+  id             Int       @id @default(autoincrement())
+  message        String?   @db.VarChar(2500)
+  stack          String?   @db.VarChar(5000)
+  url            String?
+  path           String?
+  error_status   Int?
+  request_body   String?   @db.VarChar(2500)
+  request_query  String?   @db.VarChar(2500)
+  request_params String?   @db.VarChar(2500)
+  time           DateTime? @db.DateTime()
+}
+
+model Business {
+  id                Int                 @id @default(autoincrement())
+  name              String?
+  description       String?
+  createdAt         DateTime?           @default(now())
+  isDeleted         Boolean?            @default(false)
+  image             Json?
+  category          String?
+  isPromoted        Boolean?            @default(false)
+  owner             Users?              @relation(fields: [ownerId], references: [id])
+  ownerId           Int?
+  Products          Products[]
+  ProductCategories ProductCategories[]
+}
+
+model Products {
+  id                  Int                @id @default(autoincrement())
+  name                String?
+  description         String?
+  image               Json?
+  createdAt           DateTime?          @default(now())
+  isDeleted           Boolean?           @default(false)
+  business            Business?          @relation(fields: [businessId], references: [id])
+  businessId          Int?
+  ProductCategories   ProductCategories? @relation(fields: [productCategoriesId], references: [id])
+  productCategoriesId Int?
+}
+
+model ProductCategories {
+  id         Int        @id @default(autoincrement())
+  name       String?
+  products   Products[]
+  business   Business?  @relation(fields: [businessId], references: [id])
+  businessId Int?
+}
